@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.personal.mock.dao.MockAppRepository" >
+  <resultMap id="BaseResultMap" type="MockApp" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="request_type" property="requestType" jdbcType="VARCHAR" />
+    <result column="request_uri" property="requestUri" jdbcType="VARCHAR" />
+    <result column="request_query" property="requestQuery" jdbcType="LONGVARCHAR" />
+    <result column="request_body" property="requestBody" jdbcType="LONGVARCHAR" />
+    <result column="request_header" property="requestHeader" jdbcType="LONGVARCHAR" />
+    <result column="mock_data" property="mockData" jdbcType="LONGVARCHAR" />
+    <result column="redirect_type" property="redirectType" jdbcType="VARCHAR" />
+    <result column="redirect_url" property="redirectUrl" jdbcType="VARCHAR" />
+    <result column="redirect_query" property="redirectQuery" jdbcType="LONGVARCHAR" />
+    <result column="redirect_body" property="redirectBody" jdbcType="LONGVARCHAR" />
+    <result column="redirect_header" property="redirectHeader" jdbcType="LONGVARCHAR" />
+    <result column="proxy_url_perfix" property="proxyUrlPerfix" jdbcType="VARCHAR" />
+    <result column="is_active" property="isActive" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="approver" property="approver" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, description, request_type, request_uri, request_query, request_body, request_header, 
+    mock_data, redirect_type, redirect_url, redirect_query, redirect_body, redirect_header, 
+    proxy_url_perfix, is_active, create_time, update_time, approver
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="MockAppQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mock.mock_app
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mock.mock_app
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mock.mock_app
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="MockAppQuery" >
+    delete from mock.mock_app
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="MockApp" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mock.mock_app (name, description, request_type, 
+      request_uri, request_query, request_body, 
+      request_header, mock_data, redirect_type, 
+      redirect_url, redirect_query, redirect_body, 
+      redirect_header, proxy_url_perfix, is_active, 
+      create_time, update_time, approver
+      )
+    values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{requestType,jdbcType=VARCHAR}, 
+      #{requestUri,jdbcType=VARCHAR}, #{requestQuery,jdbcType=LONGVARCHAR}, #{requestBody,jdbcType=LONGVARCHAR}, 
+      #{requestHeader,jdbcType=LONGVARCHAR}, #{mockData,jdbcType=LONGVARCHAR}, #{redirectType,jdbcType=VARCHAR}, 
+      #{redirectUrl,jdbcType=VARCHAR}, #{redirectQuery,jdbcType=LONGVARCHAR}, #{redirectBody,jdbcType=LONGVARCHAR}, 
+      #{redirectHeader,jdbcType=LONGVARCHAR}, #{proxyUrlPerfix,jdbcType=VARCHAR}, #{isActive,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{approver,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="MockApp" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mock.mock_app
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="requestType != null" >
+        request_type,
+      </if>
+      <if test="requestUri != null" >
+        request_uri,
+      </if>
+      <if test="requestQuery != null" >
+        request_query,
+      </if>
+      <if test="requestBody != null" >
+        request_body,
+      </if>
+      <if test="requestHeader != null" >
+        request_header,
+      </if>
+      <if test="mockData != null" >
+        mock_data,
+      </if>
+      <if test="redirectType != null" >
+        redirect_type,
+      </if>
+      <if test="redirectUrl != null" >
+        redirect_url,
+      </if>
+      <if test="redirectQuery != null" >
+        redirect_query,
+      </if>
+      <if test="redirectBody != null" >
+        redirect_body,
+      </if>
+      <if test="redirectHeader != null" >
+        redirect_header,
+      </if>
+      <if test="proxyUrlPerfix != null" >
+        proxy_url_perfix,
+      </if>
+      <if test="isActive != null" >
+        is_active,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="approver != null" >
+        approver,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="requestType != null" >
+        #{requestType,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUri != null" >
+        #{requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="requestQuery != null" >
+        #{requestQuery,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="requestBody != null" >
+        #{requestBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="requestHeader != null" >
+        #{requestHeader,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mockData != null" >
+        #{mockData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="redirectType != null" >
+        #{redirectType,jdbcType=VARCHAR},
+      </if>
+      <if test="redirectUrl != null" >
+        #{redirectUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="redirectQuery != null" >
+        #{redirectQuery,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="redirectBody != null" >
+        #{redirectBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="redirectHeader != null" >
+        #{redirectHeader,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="proxyUrlPerfix != null" >
+        #{proxyUrlPerfix,jdbcType=VARCHAR},
+      </if>
+      <if test="isActive != null" >
+        #{isActive,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approver != null" >
+        #{approver,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="MockAppQuery" resultType="java.lang.Integer" >
+    select count(*) from mock.mock_app
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mock.mock_app
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestType != null" >
+        request_type = #{record.requestType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestUri != null" >
+        request_uri = #{record.requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestQuery != null" >
+        request_query = #{record.requestQuery,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.requestBody != null" >
+        request_body = #{record.requestBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.requestHeader != null" >
+        request_header = #{record.requestHeader,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.mockData != null" >
+        mock_data = #{record.mockData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.redirectType != null" >
+        redirect_type = #{record.redirectType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.redirectUrl != null" >
+        redirect_url = #{record.redirectUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.redirectQuery != null" >
+        redirect_query = #{record.redirectQuery,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.redirectBody != null" >
+        redirect_body = #{record.redirectBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.redirectHeader != null" >
+        redirect_header = #{record.redirectHeader,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.proxyUrlPerfix != null" >
+        proxy_url_perfix = #{record.proxyUrlPerfix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isActive != null" >
+        is_active = #{record.isActive,jdbcType=BIT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.approver != null" >
+        approver = #{record.approver,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mock.mock_app
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      request_type = #{record.requestType,jdbcType=VARCHAR},
+      request_uri = #{record.requestUri,jdbcType=VARCHAR},
+      request_query = #{record.requestQuery,jdbcType=LONGVARCHAR},
+      request_body = #{record.requestBody,jdbcType=LONGVARCHAR},
+      request_header = #{record.requestHeader,jdbcType=LONGVARCHAR},
+      mock_data = #{record.mockData,jdbcType=LONGVARCHAR},
+      redirect_type = #{record.redirectType,jdbcType=VARCHAR},
+      redirect_url = #{record.redirectUrl,jdbcType=VARCHAR},
+      redirect_query = #{record.redirectQuery,jdbcType=LONGVARCHAR},
+      redirect_body = #{record.redirectBody,jdbcType=LONGVARCHAR},
+      redirect_header = #{record.redirectHeader,jdbcType=LONGVARCHAR},
+      proxy_url_perfix = #{record.proxyUrlPerfix,jdbcType=VARCHAR},
+      is_active = #{record.isActive,jdbcType=BIT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      approver = #{record.approver,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="MockApp" >
+    update mock.mock_app
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="requestType != null" >
+        request_type = #{requestType,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUri != null" >
+        request_uri = #{requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="requestQuery != null" >
+        request_query = #{requestQuery,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="requestBody != null" >
+        request_body = #{requestBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="requestHeader != null" >
+        request_header = #{requestHeader,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mockData != null" >
+        mock_data = #{mockData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="redirectType != null" >
+        redirect_type = #{redirectType,jdbcType=VARCHAR},
+      </if>
+      <if test="redirectUrl != null" >
+        redirect_url = #{redirectUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="redirectQuery != null" >
+        redirect_query = #{redirectQuery,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="redirectBody != null" >
+        redirect_body = #{redirectBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="redirectHeader != null" >
+        redirect_header = #{redirectHeader,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="proxyUrlPerfix != null" >
+        proxy_url_perfix = #{proxyUrlPerfix,jdbcType=VARCHAR},
+      </if>
+      <if test="isActive != null" >
+        is_active = #{isActive,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approver != null" >
+        approver = #{approver,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MockApp" >
+    update mock.mock_app
+    set name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      request_type = #{requestType,jdbcType=VARCHAR},
+      request_uri = #{requestUri,jdbcType=VARCHAR},
+      request_query = #{requestQuery,jdbcType=LONGVARCHAR},
+      request_body = #{requestBody,jdbcType=LONGVARCHAR},
+      request_header = #{requestHeader,jdbcType=LONGVARCHAR},
+      mock_data = #{mockData,jdbcType=LONGVARCHAR},
+      redirect_type = #{redirectType,jdbcType=VARCHAR},
+      redirect_url = #{redirectUrl,jdbcType=VARCHAR},
+      redirect_query = #{redirectQuery,jdbcType=LONGVARCHAR},
+      redirect_body = #{redirectBody,jdbcType=LONGVARCHAR},
+      redirect_header = #{redirectHeader,jdbcType=LONGVARCHAR},
+      proxy_url_perfix = #{proxyUrlPerfix,jdbcType=VARCHAR},
+      is_active = #{isActive,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      approver = #{approver,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

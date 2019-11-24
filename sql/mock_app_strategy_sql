@@ -1,0 +1,2 @@
+INSERT INTO mock.mock_app_strategy (id, app_id, strategy_id, create_time, update_time, approver) VALUES (1, 9, 1, '2019-03-22 07:59:51', '2019-04-02 18:08:30', 'zhaoxu');
+INSERT INTO mock.mock_app_strategy (id, app_id, strategy_id, create_time, update_time, approver) VALUES (2, 3, 1, '2019-03-22 07:59:51', '2019-04-02 18:08:30', 'zhaoxu');

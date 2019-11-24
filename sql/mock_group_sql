@@ -1,0 +1,2 @@
+INSERT INTO mock.mock_group (id, name, description, is_active, create_time, update_time, approver) VALUES (1, 'group1', 'group_description1', 1, '2019-03-22 07:44:37', '2019-03-22 07:44:39', 'zhaoxu');
+INSERT INTO mock.mock_group (id, name, description, is_active, create_time, update_time, approver) VALUES (2, 'group2', 'group_description2', 1, '2019-03-22 07:44:37', '2019-03-22 07:44:39', 'zhaoxu');

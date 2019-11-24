@@ -1,0 +1,2 @@
+INSERT INTO mock.mock_strategy (id, name, description, mock_response_strategy, create_time, update_time, approver) VALUES (1, 'l啦啦啦', 'ddd', 3, '2019-04-15 11:16:04', '2019-04-15 11:16:08', 'zzhaoxu');
+INSERT INTO mock.mock_strategy (id, name, description, mock_response_strategy, create_time, update_time, approver) VALUES (2, 'l啦啦啦', 'ddd', 1, '2019-04-15 11:16:04', '2019-04-15 11:16:08', 'zzhaoxu');

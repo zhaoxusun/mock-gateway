@@ -1,0 +1,6 @@
+[INFO ] [16:25:19] com.personal.mock.common.util.ParameterToPo - id:22
+[INFO ] [16:34:45] com.personal.mock.common.util.ParameterToPo - id:22
+[INFO ] [16:35:32] com.personal.mock.common.util.ParameterToPo - id:22
+[INFO ] [16:35:33] com.personal.mock.log.LogUtil - [com.personal.mock.mybatis.service.MockDataServiceTest.testInsertMockData(MockDataServiceTest.java:24)]:test finish
+[INFO ] [16:54:07] com.personal.mock.common.util.ParameterToPo - id:22
+[INFO ] [16:54:08] com.personal.mock.log.LogUtil - [com.personal.mock.mybatis.service.MockDataServiceTest.testInsertMockData(MockDataServiceTest.java:24)]:test finish
